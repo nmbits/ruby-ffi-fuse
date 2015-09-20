@@ -126,7 +126,7 @@ module FFI
 
     case RUBY_PLATFORM
     when /linux/
-      machine = `uname -m`
+      machine = `uname -m`.strip
       # From /usr/include/bits/stat.h
       case machine
       when 'x86_64'
@@ -141,7 +141,7 @@ module FFI
                  :__pad0, :int,
                  :st_rdev, :__dev_t,
                  :st_size, :__off_t,
-                 :st_blksize, :__blksize_t,
+                 :st_blksize, :blksize_t,
                  :st_blocks, :__blkcnt_t,
                  :st_atime, :__time_t,
                  :st_atimensec, :ulong,

@@ -71,9 +71,11 @@ module FuseFFI
       when File::Stat
         [:dev, :ino, :mode, :nlink,
          :uid, :gid, :rdev, :size,
-         :blksize, :blocks,
-         :atime, :mtime, :ctime].each do |s|
+         :blksize, :blocks].each do |s|
           fuse_stat["st_#{s}".to_sym] = stat.__send__ s
+        end
+        [:atime, :mtime, :ctime].each do |s|
+          fuse_stat["st_#{s}".to_sym] = stat.__send__(s).to_i
         end
       when Hash
         [:dev, :ino, :mode, :nlink,
